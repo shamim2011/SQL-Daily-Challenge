@@ -1,0 +1,30 @@
+Table: Seat
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| student     | varchar |
++-------------+---------+
+id is the primary key (unique value) column for this table.
+Each row of this table indicates the name and the ID of a student.
+The ID sequence always starts from 1 and increments continuously.
+Write a solution to swap the seat id of every two consecutive students. If the number of students is odd, the id of the last student is not swapped.
+Return the result table ordered by id in ascending order.
+
+# Write your MySQL query statement below
+select
+    case
+        // Odd rows
+        when
+            id=(select max(id) from seat) and mod(id,2)=1
+            then id
+        // Even rows
+        when 
+            mod(id,2)=1
+            then id+1
+        else
+            id-1
+    end as id,student
+from seat
+order by id;
