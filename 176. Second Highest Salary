@@ -1,0 +1,28 @@
+Table: Employee
+
++-------------+------+
+| Column Name | Type |
++-------------+------+
+| id          | int  |
+| salary      | int  |
++-------------+------+
+id is the primary key (column with unique values) for this table.
+Each row of this table contains information about the salary of an employee.
+Write a solution to find the second highest distinct salary from the Employee table.
+If there is no second highest salary, return null (return None in Pandas).
+
+// Approach -1 // Using ifnull
+SELECT
+    IFNULL(
+      (SELECT DISTINCT Salary
+       FROM Employee
+       ORDER BY Salary DESC
+       LIMIT 1 OFFSET 1),
+    NULL)
+AS SecondHighestSalary;
+
+// Approach -2 Using subqueries
+select max(salary) as SecondHighestSalary from Employee
+where salary < (select max(salary) from Employee);
+
+
